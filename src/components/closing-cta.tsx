@@ -21,7 +21,7 @@ export default function ClosingCta() {
             ready to add Samy to your server?
           </h2>
           <p className="mt-4 text-lg text-text-secondary">
-            Add Samy to your server today!
+            add Samy to your server today!
           </p>
           <div className="mt-10">
             <Link

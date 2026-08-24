@@ -86,7 +86,7 @@ export default function FeatureGrid() {
             everything your server needs
           </h2>
           <p className="mt-4 text-lg text-text-secondary">
-            30+ modules, one bot, zero headaches.
+            15+ modules, all in one bot.
           </p>
         </div>
 

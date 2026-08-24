@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Samy",
   description:
-    "Moderation, utility, music, server management, and more. Only one bot for your server.",
+    "moderation, utility, music, server management, and more. Only one bot for your server.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

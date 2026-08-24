@@ -12,7 +12,7 @@ export default function Hero() {
             <span className="text-accent">open-source</span> all-in-one app
           </h1>
           <p className="mt-6 text-lg leading-8 text-text-secondary">
-            Moderation, utility, music, server management, and more. Only one
+            moderation, utility, music, server management, and more. Only one
             bot for your server.
           </p>
           <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
