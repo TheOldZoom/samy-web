@@ -100,6 +100,18 @@
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
+  --color-category-fun: var(--category-fun);
+  --color-category-fun-bg: var(--category-fun-bg);
+  --color-category-fun-border: var(--category-fun-border);
+  --color-category-moderation: var(--category-moderation);
+  --color-category-moderation-bg: var(--category-moderation-bg);
+  --color-category-moderation-border: var(--category-moderation-border);
+  --color-category-server: var(--category-server);
+  --color-category-server-bg: var(--category-server-bg);
+  --color-category-server-border: var(--category-server-border);
+  --color-category-utility: var(--category-utility);
+  --color-category-utility-bg: var(--category-utility-bg);
+  --color-category-utility-border: var(--category-utility-border);
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
@@ -152,5 +164,9 @@ body {
   }
   html {
     @apply font-sans;
+  }
+  select option {
+    background: var(--bg-elevated);
+    color: var(--text-primary);
   }
 }
