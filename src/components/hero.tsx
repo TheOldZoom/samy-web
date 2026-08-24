@@ -8,11 +8,11 @@ export default function Hero() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-3xl text-center">
           <h1 className="text-4xl font-semibold tracking-tight text-text-primary sm:text-5xl lg:text-6xl">
-            Samy is Discord's best{" "}
+            <span className="text-accent">Samy</span> is Discord's best{" "}
             <span className="text-accent">open-source</span> all-in-one app
           </h1>
           <p className="mt-6 text-lg leading-8 text-text-secondary">
-            moderation, utility, music, server management, and more. Only one
+            moderation, utility, Last.Fm, server management, and more. only one
             bot for your server.
           </p>
           <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">

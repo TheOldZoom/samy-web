@@ -9,7 +9,6 @@ import Footer from "@/components/footer";
 export default function Home() {
   return (
     <>
-      <Navbar />
       <main className="flex-1">
         <Hero />
         <SocialProofMarquee />
@@ -17,7 +16,6 @@ export default function Home() {
         <IntegrationsStrip />
         <ClosingCta />
       </main>
-      <Footer />
     </>
   );
 }
