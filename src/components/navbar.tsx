@@ -48,7 +48,7 @@ export default function Navbar() {
           <div className="hidden md:flex items-center">
             <Link
               href="/invite"
-              className="group flex items-center gap-1.5 rounded-lg bg-text-primary px-3.5 py-2 text-[13px] font-medium text-bg-base transition-all hover:opacity-90"
+              className="group flex items-center gap-1.5 rounded-lg  px-3.5 py-2 text-[13px] font-medium transition-all hover:opacity-90 bg-primary text-primary-foreground"
             >
               add to discord
               <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
@@ -88,7 +88,7 @@ export default function Navbar() {
                 <Link
                   href="/invite"
                   onClick={() => setOpen(false)}
-                  className="mt-4 flex items-center justify-center gap-2 rounded-lg bg-text-primary px-4 py-2.5 text-sm font-medium text-bg-base"
+                  className="mt-4 flex items-center justify-center gap-2 rounded-lg bg-primary px-4 py-2.5 text-sm font-medium text-primary-foreground"
                 >
                   add to discord
                   <ArrowUpRight className="h-4 w-4" />
