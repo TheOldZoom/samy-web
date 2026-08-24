@@ -5,20 +5,12 @@ import { ArrowLeft, ArrowUpRight } from "lucide-react";
 
 export default function NotFound() {
   return (
-    <main className="relative flex min-h-[calc(100vh-4rem)] items-center justify-center overflow-hidden">
+    <div className="relative flex items-center justify-center overflow-hidden">
       <div className="absolute inset-0 -z-10 overflow-hidden">
         <div className="absolute left-1/2 top-1/2 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent/10 blur-[120px]" />
       </div>
 
       <div className="mx-auto w-full max-w-2xl px-6 py-24 text-center">
-        <div className="mx-auto mb-8 flex h-16 w-16 items-center justify-center rounded-2xl border border-border-subtle bg-bg-card shadow-[0_0_40px_rgba(168,85,247,0.12)]">
-          <img
-            src="/samy.jpg"
-            alt="Samy"
-            className="h-12 w-12 rounded-xl object-cover"
-          />
-        </div>
-
         <p className="text-sm font-medium uppercase tracking-[0.2em] text-accent">
           error 404
         </p>
@@ -49,15 +41,7 @@ export default function NotFound() {
             <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
           </Link>
         </div>
-
-        <div className="mx-auto mt-12 flex max-w-sm items-center justify-center gap-3 rounded-xl border border-border-subtle bg-bg-card/60 px-4 py-3 text-left">
-          <div className="h-2 w-2 rounded-full bg-accent shadow-[0_0_10px_rgba(168,85,247,0.7)]" />
-
-          <p className="text-xs text-text-muted">
-            samy is here, but this page isn't
-          </p>
-        </div>
       </div>
-    </main>
+    </div>
   );
 }

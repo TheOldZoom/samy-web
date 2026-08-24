@@ -25,7 +25,7 @@ export default function ClosingCta() {
           </p>
           <div className="mt-10">
             <Link
-              href="#invite"
+              href="/invite"
               className="inline-flex items-center justify-center rounded-full bg-primary px-10 py-4 text-lg font-semibold text-primary-foreground shadow-[0_0_40px_rgba(168,85,247,0.35)] transition-all hover:bg-primary/90 hover:shadow-[0_0_60px_rgba(168,85,247,0.5)]"
             >
               add Samy to your server

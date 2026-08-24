@@ -5,9 +5,9 @@ import { useState } from "react";
 import { Menu, X, ArrowUpRight } from "lucide-react";
 
 const navLinks = [
-  { label: "features", href: "#features" },
-  { label: "integrations", href: "#integrations" },
-  { label: "docs", href: "/docs/" },
+  { label: "commands", href: "/commands" },
+  { label: "status", href: "/status" },
+  { label: "docs", href: "/docs" },
 ];
 
 export default function Navbar() {
