@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
 import { Cat, PawPrint, type LucideIcon } from "lucide-react";
 import {
   AnimatePresence,
@@ -332,7 +333,7 @@ function SparkleLayer() {
   );
 }
 
-export default function CatBackground() {
+function CatBackgroundContent() {
   const [cats, setCats] = useState<CatItem[]>([]);
   const [mounted, setMounted] = useState(false);
   const [cursorActive, setCursorActive] = useState(false);
@@ -429,7 +430,6 @@ export default function CatBackground() {
 
     return () => {
       window.removeEventListener("mousemove", onMouseMove);
-
       window.removeEventListener("touchmove", onTouchMove);
 
       if (cursorTimeout.current) {
@@ -664,4 +664,14 @@ export default function CatBackground() {
       </svg>
     </div>
   );
+}
+
+export default function CatBackground() {
+  const pathname = usePathname();
+
+  if (pathname && (pathname === "/docs" || pathname.startsWith("/docs/"))) {
+    return null;
+  }
+
+  return <CatBackgroundContent />;
 }

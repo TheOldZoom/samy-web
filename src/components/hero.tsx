@@ -24,12 +24,9 @@ export default function Hero() {
             </Link>
             <Link
               href="/docs/"
-              aria-disabled="true"
-              tabIndex={-1}
-              onClick={(e) => e.preventDefault()}
-              className="inline-flex cursor-not-allowed items-center justify-center rounded-full border border-border-hover px-8 py-3.5 text-base font-medium text-text-primary opacity-60"
+              className="inline-flex items-center justify-center gap-2 rounded-full border border-border-hover bg-bg-card/50 px-7 py-3.5 text-sm font-medium text-text-primary transition-all hover:bg-bg-elevated"
             >
-              read docs soon
+              documentation
             </Link>
           </div>
         </div>

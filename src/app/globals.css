@@ -1,6 +1,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
+@plugin "@tailwindcss/typography";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -169,4 +170,51 @@ body {
     background: var(--bg-elevated);
     color: var(--text-primary);
   }
+}
+
+[data-rehype-pretty-code-figure] {
+  margin: 1.5rem 0;
+}
+
+[data-rehype-pretty-code-figure] pre {
+  padding: 1.25rem;
+  border-radius: 0.875rem;
+  background-color: #090514 !important;
+  border: 1px solid rgba(168, 85, 247, 0.25);
+  overflow-x: auto;
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+}
+
+[data-rehype-pretty-code-figure] code {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.86rem;
+  line-height: 1.65;
+  color: #f1f5f9;
+}
+
+[data-line] {
+  padding: 0 0.25rem;
+}
+
+[data-highlighted-line] {
+  background-color: rgba(168, 85, 247, 0.18);
+  border-radius: 0.25rem;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(168, 85, 247, 0.2);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(168, 85, 247, 0.4);
 }
