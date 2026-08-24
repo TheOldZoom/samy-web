@@ -17,7 +17,7 @@ export default function Hero() {
           </p>
           <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
-              href="#invite"
+              href="/invite"
               className="inline-flex items-center justify-center rounded-full bg-primary px-8 py-3.5 text-base font-semibold text-primary-foreground shadow-[0_0_30px_rgba(168,85,247,0.3)] transition-all hover:bg-primary/90 hover:shadow-[0_0_50px_rgba(168,85,247,0.5)]"
             >
               add to your server
