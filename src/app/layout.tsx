@@ -14,8 +14,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "samy — discord's premier all-in-one bot",
-  description: "music, moderation, leveling, and more. one bot to rule your server.",
+  title: "Samy",
+  description:
+    "Moderation, utility, music, server management, and more. Only one bot for your server.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
