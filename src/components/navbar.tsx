@@ -29,7 +29,7 @@ export default function Navbar() {
             />
 
             <span className="text-[15px] font-semibold tracking-[-0.01em] text-text-primary">
-              samy
+              Samy
             </span>
           </Link>
 
