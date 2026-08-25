@@ -165,6 +165,8 @@ body {
   }
   html {
     @apply font-sans;
+    scrollbar-color: rgba(168, 85, 247, 0.25) transparent;
+    scrollbar-width: thin;
   }
   select option {
     background: var(--bg-elevated);
@@ -201,9 +203,15 @@ body {
   border-radius: 0.25rem;
 }
 
+html {
+  @apply font-sans;
+  scrollbar-color: rgba(168, 85, 247, 0.25) transparent;
+  scrollbar-width: thin;
+}
+
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 20;
+  height: 10px;
 }
 
 ::-webkit-scrollbar-track {
@@ -213,8 +221,13 @@ body {
 ::-webkit-scrollbar-thumb {
   background: rgba(168, 85, 247, 0.2);
   border-radius: 9999px;
+  border: 3px solid var(--bg-base);
 }
 
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(168, 85, 247, 0.4);
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
 }
