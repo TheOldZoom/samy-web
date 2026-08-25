@@ -75,23 +75,23 @@ export default async function DocPage({ params }: DocPageProps) {
   return (
     <div className="flex gap-8">
       <article className="min-w-0 max-w-4xl flex-1">
-        <div className="relative rounded-2xl border border-purple-500/15 bg-[#0e081c]/95 p-6 sm:p-10 shadow-2xl backdrop-blur-xl">
+        <div className="relative rounded-2xl border border-border-subtle bg-bg-elevated p-6 sm:p-10 shadow-2xl">
           <div className="mb-6">
             <Breadcrumbs items={breadcrumbItems} />
           </div>
 
-          <header className="pb-6 border-b border-purple-500/15">
-            <h1 className="font-heading text-3xl sm:text-4xl font-bold tracking-tight text-zinc-50">
+          <header className="pb-6 border-b border-border-subtle">
+            <h1 className="font-heading text-3xl sm:text-4xl font-bold tracking-tight text-text-primary">
               {doc.frontmatter.title}
             </h1>
             {doc.frontmatter.description && (
-              <p className="mt-3 text-base sm:text-lg leading-relaxed text-zinc-300">
+              <p className="mt-3 text-base sm:text-lg leading-relaxed text-text-secondary">
                 {doc.frontmatter.description}
               </p>
             )}
           </header>
 
-          <div className="prose prose-invert max-w-none pt-6 prose-headings:font-heading prose-headings:tracking-tight prose-a:text-purple-300 prose-code:text-purple-200">
+          <div className="prose prose-invert max-w-none pt-6 prose-headings:font-heading prose-headings:tracking-tight prose-a:text-accent prose-code:text-accent">
             <MDXRemote
               source={doc.content}
               components={mdxComponents}

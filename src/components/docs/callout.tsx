@@ -11,35 +11,35 @@ interface CalloutProps {
 
 const calloutStyles = {
   info: {
-    container: "border-blue-500/30 bg-[#0c192e]/90 text-blue-100 shadow-[0_0_20px_rgba(59,130,246,0.08)]",
+    container: "border-blue-500/30 bg-blue-950/90 text-blue-100 shadow-[0_0_20px_rgba(59,130,246,0.08)]",
     badge: "bg-blue-500/20 text-blue-300 border-blue-400/30 shadow-[0_0_12px_rgba(59,130,246,0.2)]",
     icon: Info,
     titleColor: "text-blue-200 font-semibold",
     bodyColor: "text-blue-100/90",
   },
   tip: {
-    container: "border-purple-500/30 bg-[#170e2b]/90 text-purple-100 shadow-[0_0_20px_rgba(168,85,247,0.08)]",
-    badge: "bg-purple-500/20 text-purple-300 border-purple-400/30 shadow-[0_0_12px_rgba(168,85,247,0.2)]",
+    container: "border-accent/30 bg-accent-deep/90 text-accent shadow-[0_0_20px_rgba(168,85,247,0.08)]",
+    badge: "bg-accent/20 text-accent border-accent/30 shadow-[0_0_12px_rgba(168,85,247,0.2)]",
     icon: Lightbulb,
-    titleColor: "text-purple-200 font-semibold",
-    bodyColor: "text-purple-100/90",
+    titleColor: "text-accent font-semibold",
+    bodyColor: "text-accent/90",
   },
   warning: {
-    container: "border-amber-500/30 bg-[#251809]/90 text-amber-100 shadow-[0_0_20px_rgba(245,158,11,0.08)]",
+    container: "border-amber-500/30 bg-amber-950/90 text-amber-100 shadow-[0_0_20px_rgba(245,158,11,0.08)]",
     badge: "bg-amber-500/20 text-amber-300 border-amber-400/30 shadow-[0_0_12px_rgba(245,158,11,0.2)]",
     icon: AlertTriangle,
     titleColor: "text-amber-200 font-semibold",
     bodyColor: "text-amber-100/90",
   },
   danger: {
-    container: "border-red-500/30 bg-[#260c14]/90 text-red-100 shadow-[0_0_20px_rgba(239,68,68,0.08)]",
+    container: "border-red-500/30 bg-red-950/90 text-red-100 shadow-[0_0_20px_rgba(239,68,68,0.08)]",
     badge: "bg-red-500/20 text-red-300 border-red-400/30 shadow-[0_0_12px_rgba(239,68,68,0.2)]",
     icon: AlertOctagon,
     titleColor: "text-red-200 font-semibold",
     bodyColor: "text-red-100/90",
   },
   success: {
-    container: "border-emerald-500/30 bg-[#082016]/90 text-emerald-100 shadow-[0_0_20px_rgba(16,185,129,0.08)]",
+    container: "border-emerald-500/30 bg-emerald-950/90 text-emerald-100 shadow-[0_0_20px_rgba(16,185,129,0.08)]",
     badge: "bg-emerald-500/20 text-emerald-300 border-emerald-400/30 shadow-[0_0_12px_rgba(16,185,129,0.2)]",
     icon: Sparkles,
     titleColor: "text-emerald-200 font-semibold",
@@ -59,7 +59,7 @@ export function Callout({
   return (
     <div
       className={cn(
-        "my-6 flex gap-3.5 rounded-xl border p-4 text-sm leading-relaxed backdrop-blur-md transition-all",
+        "my-6 flex gap-3.5 rounded-xl border p-4 text-sm leading-relaxed transition-all",
         style.container,
         className
       )}

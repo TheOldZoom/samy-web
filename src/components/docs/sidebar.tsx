@@ -42,7 +42,7 @@ export function DocsSidebar({ sections, searchIndex }: SidebarProps) {
   };
 
   return (
-    <aside className="w-full rounded-2xl border border-purple-500/15 bg-[#0e081c]/90 p-4.5 backdrop-blur-xl shadow-xl space-y-6">
+    <aside className="w-full rounded-2xl border border-border-subtle bg-bg-elevated p-4.5 shadow-xl space-y-6">
       <div>
         <DocsSearch searchIndex={searchIndex} />
       </div>
@@ -57,18 +57,18 @@ export function DocsSidebar({ sections, searchIndex }: SidebarProps) {
               <button
                 type="button"
                 onClick={() => toggleSection(section.title)}
-                className="flex w-full items-center justify-between rounded-lg px-2.5 py-1.5 text-xs font-bold uppercase tracking-wider text-zinc-300 transition-colors hover:bg-white/[0.04] hover:text-white"
+                className="flex w-full items-center justify-between rounded-lg px-2.5 py-1.5 text-xs font-bold uppercase tracking-wider text-text-secondary transition-colors hover:bg-bg-card hover:text-text-primary"
               >
                 <span className="flex items-center gap-2">
-                  <div className="flex h-5 w-5 items-center justify-center rounded-md border border-purple-500/20 bg-purple-950/40 text-purple-400">
+                  <div className="flex h-5 w-5 items-center justify-center rounded-md border border-border-subtle bg-accent-deep/40 text-accent">
                     <Icon className="h-3 w-3" />
                   </div>
                   <span>{section.title}</span>
                 </span>
                 {isCollapsed ? (
-                  <ChevronRight className="h-3.5 w-3.5 text-zinc-500" />
+                  <ChevronRight className="h-3.5 w-3.5 text-text-muted" />
                 ) : (
-                  <ChevronDown className="h-3.5 w-3.5 text-zinc-500" />
+                  <ChevronDown className="h-3.5 w-3.5 text-text-muted" />
                 )}
               </button>
 
@@ -87,8 +87,8 @@ export function DocsSidebar({ sections, searchIndex }: SidebarProps) {
                         className={cn(
                           "group relative flex items-center justify-between rounded-lg px-3 py-1.5 text-[13px] transition-all",
                           isActive
-                            ? "bg-purple-500/15 font-semibold text-purple-200"
-                            : "text-zinc-400 hover:bg-white/[0.04] hover:text-zinc-100",
+                            ? "bg-accent/15 font-semibold text-accent"
+                            : "text-text-muted hover:bg-bg-card hover:text-text-primary",
                         )}
                       >
                         <span>{item.title}</span>

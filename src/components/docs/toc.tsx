@@ -50,10 +50,10 @@ export function TableOfContents({ toc }: TocProps) {
   };
 
   return (
-    <div className="rounded-2xl border border-purple-500/15 bg-[#0e081c]/90 p-4.5 backdrop-blur-xl shadow-xl space-y-4">
-      <div className="flex items-center gap-2 pb-2.5 border-b border-purple-500/15">
-        <AlignLeft className="h-3.5 w-3.5 text-purple-400" />
-        <span className="text-xs font-bold uppercase tracking-wider text-zinc-200">
+    <div className="rounded-2xl border border-border-subtle bg-bg-elevated p-4.5 shadow-xl space-y-4">
+      <div className="flex items-center gap-2 pb-2.5 border-b border-border-subtle">
+        <AlignLeft className="h-3.5 w-3.5 text-accent" />
+        <span className="text-xs font-bold uppercase tracking-wider text-text-secondary">
           On this page
         </span>
       </div>
@@ -75,8 +75,8 @@ export function TableOfContents({ toc }: TocProps) {
                   className={cn(
                     "block rounded-md px-2 py-1.5 transition-all",
                     isActive
-                      ? "bg-purple-500/15 text-purple-200 font-semibold shadow-[0_0_12px_rgba(168,85,247,0.15)]"
-                      : "text-zinc-400 hover:bg-white/[0.04] hover:text-zinc-200"
+                      ? "bg-accent/15 text-accent font-semibold shadow-[0_0_12px_rgba(168,85,247,0.15)]"
+                      : "text-text-muted hover:bg-bg-card hover:text-text-secondary"
                   )}
                   onClick={(e) => {
                     e.preventDefault();
@@ -102,16 +102,16 @@ export function TableOfContents({ toc }: TocProps) {
           })}
         </ul>
       ) : (
-        <p className="text-xs text-zinc-500 italic">Overview & guide summary</p>
+        <p className="text-xs text-text-muted italic">Overview & guide summary</p>
       )}
 
-      <div className="pt-3 border-t border-purple-500/15">
+      <div className="pt-3 border-t border-border-subtle">
         <button
           type="button"
           onClick={scrollToTop}
-          className="flex w-full items-center gap-2 rounded-lg px-2 py-1.5 text-xs text-zinc-400 transition-colors hover:bg-white/[0.04] hover:text-zinc-200"
+          className="flex w-full items-center gap-2 rounded-lg px-2 py-1.5 text-xs text-text-muted transition-colors hover:bg-bg-card hover:text-text-secondary"
         >
-          <ArrowUp className="h-3.5 w-3.5 text-purple-400" />
+          <ArrowUp className="h-3.5 w-3.5 text-accent" />
           <span>Back to top</span>
         </button>
       </div>

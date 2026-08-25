@@ -1,15 +1,12 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { usePathname } from "next/navigation";
 import { Cat, PawPrint, type LucideIcon } from "lucide-react";
 import {
   AnimatePresence,
   motion,
   motionValue,
-  useAnimationFrame,
   useMotionValue,
-  useSpring,
   useTransform,
   type MotionValue,
 } from "framer-motion";
@@ -26,28 +23,11 @@ interface CatItem {
   flip: boolean;
 }
 
-const CAT_COUNT = 55;
-
-function generateCats(): CatItem[] {
-  const items: CatItem[] = [];
-  const shapes: ("cat" | "paw")[] = ["cat", "paw", "paw"];
-
-  for (let i = 0; i < CAT_COUNT; i++) {
-    items.push({
-      id: i,
-      left: Math.random() * 96,
-      top: Math.random() * 96,
-      size: 24 + Math.random() * 60,
-      duration: 35 + Math.random() * 55,
-      delay: Math.random() * -60,
-      rotate: -15 + Math.random() * 30,
-      shape: shapes[i % 3],
-      flip: Math.random() > 0.5,
-    });
-  }
-
-  return items;
-}
+const DESKTOP_CAT_COUNT = 55;
+const MOBILE_CAT_COUNT = 18;
+const DESKTOP_SPARKLE_COUNT = 45;
+const MOBILE_SPARKLE_COUNT = 12;
+const PROXIMITY_RADIUS = 260;
 
 const glowBlobs = [
   {
@@ -73,7 +53,52 @@ const glowBlobs = [
   },
 ];
 
-const PROXIMITY_RADIUS = 260;
+function generateCats(count: number): CatItem[] {
+  const items: CatItem[] = [];
+  const shapes: ("cat" | "paw")[] = ["cat", "paw", "paw"];
+
+  for (let i = 0; i < count; i++) {
+    items.push({
+      id: i,
+      left: Math.random() * 96,
+      top: Math.random() * 96,
+      size: 24 + Math.random() * 60,
+      duration: 35 + Math.random() * 55,
+      delay: Math.random() * -60,
+      rotate: -15 + Math.random() * 30,
+      shape: shapes[i % 3],
+      flip: Math.random() > 0.5,
+    });
+  }
+
+  return items;
+}
+
+interface Sparkle {
+  id: number;
+  left: number;
+  top: number;
+  size: number;
+  duration: number;
+  delay: number;
+}
+
+function generateSparkles(count: number): Sparkle[] {
+  const items: Sparkle[] = [];
+
+  for (let i = 0; i < count; i++) {
+    items.push({
+      id: i,
+      left: Math.random() * 100,
+      top: Math.random() * 100,
+      size: 1.5 + Math.random() * 2.5,
+      duration: 2 + Math.random() * 4,
+      delay: Math.random() * 6,
+    });
+  }
+
+  return items;
+}
 
 type PawIconElement =
   | {
@@ -106,7 +131,16 @@ const pawIcon: {
 function CatSprite({ cat, glow }: { cat: CatItem; glow: MotionValue<number> }) {
   const Icon: LucideIcon = cat.shape === "cat" ? Cat : PawPrint;
 
-  const dropShadow = useTransform(
+  const randomGlow = useMemo(
+    () => ({
+      delay: Math.random() * 8,
+      duration: 3 + Math.random() * 4,
+      repeatDelay: 4 + Math.random() * 10,
+    }),
+    [],
+  );
+
+  const cursorDropShadow = useTransform(
     glow,
     [0, 1],
     [
@@ -115,21 +149,18 @@ function CatSprite({ cat, glow }: { cat: CatItem; glow: MotionValue<number> }) {
     ],
   );
 
-  const scaleBoost = useTransform(glow, [0, 1], [1, 1.3]);
-  const opacityBoost = useTransform(glow, [0, 1], [0, 0.85]);
+  const cursorScale = useTransform(glow, [0, 1], [1, 1.3]);
 
   return (
     <motion.div
       className="absolute"
       style={{
-        left: `${cat.left}%`,
-        top: `${cat.top}%`,
         width: cat.size,
         height: cat.size,
         rotate: cat.rotate,
         scaleX: cat.flip ? -1 : 1,
-        scale: scaleBoost,
-        filter: dropShadow,
+        scale: cursorScale,
+        filter: cursorDropShadow,
       }}
       animate={{
         y: [0, -40, 0],
@@ -143,25 +174,44 @@ function CatSprite({ cat, glow }: { cat: CatItem; glow: MotionValue<number> }) {
         delay: cat.delay,
       }}
     >
-      <motion.div
-        className="absolute inset-0 text-accent-deep"
-        style={{ opacity: 0.09 }}
-        animate={{ opacity: [0.06, 0.13, 0.06] }}
-        transition={{
-          duration: cat.duration,
-          repeat: Infinity,
-          ease: "easeInOut",
-          delay: cat.delay,
-        }}
-      >
+      <div className="absolute inset-0 text-accent-deep opacity-[0.09]">
         <Icon className="h-full w-full" strokeWidth={1.6} />
-      </motion.div>
+      </div>
+
+      <motion.div
+        className="absolute inset-[-25%] rounded-full"
+        style={{
+          background:
+            "radial-gradient(circle, rgba(216,180,254,0.55) 0%, rgba(168,85,247,0.25) 35%, transparent 70%)",
+          filter: "blur(8px)",
+        }}
+        animate={{
+          opacity: [0, 0, 0.8, 1, 0, 0, 0],
+          scale: [0.8, 0.8, 1, 1.15, 0.8, 0.8, 0.8],
+        }}
+        transition={{
+          duration: randomGlow.duration,
+          delay: randomGlow.delay,
+          repeat: Infinity,
+          repeatDelay: randomGlow.repeatDelay,
+          ease: "easeInOut",
+        }}
+      />
 
       <motion.div
         className="absolute inset-0"
         style={{
-          opacity: opacityBoost,
           color: "rgb(216,180,254)",
+        }}
+        animate={{
+          opacity: [0, 0, 0.8, 0.95, 0, 0, 0],
+        }}
+        transition={{
+          duration: randomGlow.duration,
+          delay: randomGlow.delay,
+          repeat: Infinity,
+          repeatDelay: randomGlow.repeatDelay,
+          ease: "easeInOut",
         }}
       >
         <Icon className="h-full w-full" strokeWidth={1.6} />
@@ -170,138 +220,14 @@ function CatSprite({ cat, glow }: { cat: CatItem; glow: MotionValue<number> }) {
   );
 }
 
-interface TrailPoint {
-  id: number;
-  x: number;
-  y: number;
-  rotate: number;
-}
-
-function usePawTrail() {
-  const [points, setPoints] = useState<TrailPoint[]>([]);
-
-  const lastPos = useRef({
-    x: -1000,
-    y: -1000,
-  });
-
-  const idRef = useRef(0);
-  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  useEffect(() => {
-    function clearTrail() {
-      setPoints([]);
-    }
-
-    function resetInactivityTimer() {
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
-      }
-
-      timeoutRef.current = setTimeout(clearTrail, 3000);
-    }
-
-    function stamp(x: number, y: number) {
-      const dx = x - lastPos.current.x;
-      const dy = y - lastPos.current.y;
-      const distance = Math.hypot(dx, dy);
-
-      resetInactivityTimer();
-
-      if (distance < 55) {
-        return;
-      }
-
-      const angle = (Math.atan2(dy, dx) * 180) / Math.PI - 180;
-
-      lastPos.current = {
-        x,
-        y,
-      };
-
-      const id = idRef.current++;
-
-      setPoints((previous) => [
-        ...previous.slice(-14),
-        {
-          id,
-          x,
-          y,
-          rotate: angle,
-        },
-      ]);
-
-      window.setTimeout(() => {
-        setPoints((previous) => previous.filter((point) => point.id !== id));
-      }, 900);
-    }
-
-    function onMouseMove(event: MouseEvent) {
-      stamp(event.clientX, event.clientY);
-    }
-
-    function onTouchMove(event: TouchEvent) {
-      const touch = event.touches[0];
-
-      if (!touch) {
-        return;
-      }
-
-      stamp(touch.clientX, touch.clientY);
-    }
-
-    window.addEventListener("mousemove", onMouseMove);
-    window.addEventListener("touchmove", onTouchMove, {
-      passive: true,
-    });
-
-    return () => {
-      window.removeEventListener("mousemove", onMouseMove);
-      window.removeEventListener("touchmove", onTouchMove);
-
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
-      }
-    };
-  }, []);
-
-  return points;
-}
-
-interface Sparkle {
-  id: number;
-  left: number;
-  top: number;
-  size: number;
-  duration: number;
-  delay: number;
-}
-
-const SPARKLE_COUNT = 45;
-
-function generateSparkles(): Sparkle[] {
-  const items: Sparkle[] = [];
-
-  for (let i = 0; i < SPARKLE_COUNT; i++) {
-    items.push({
-      id: i,
-      left: Math.random() * 100,
-      top: Math.random() * 100,
-      size: 1.5 + Math.random() * 2.5,
-      duration: 2 + Math.random() * 4,
-      delay: Math.random() * 6,
-    });
-  }
-
-  return items;
-}
-
-function SparkleLayer() {
+function SparkleLayer({ mobile }: { mobile: boolean }) {
   const [sparkles, setSparkles] = useState<Sparkle[]>([]);
 
   useEffect(() => {
-    setSparkles(generateSparkles());
-  }, []);
+    setSparkles(
+      generateSparkles(mobile ? MOBILE_SPARKLE_COUNT : DESKTOP_SPARKLE_COUNT),
+    );
+  }, [mobile]);
 
   return (
     <>
@@ -315,7 +241,7 @@ function SparkleLayer() {
             width: sparkle.size,
             height: sparkle.size,
             background: "rgb(232,121,249)",
-            boxShadow: "0 0 6px 1px rgba(232,121,249,0.8)",
+            boxShadow: mobile ? undefined : "0 0 6px 1px rgba(232,121,249,0.8)",
           }}
           animate={{
             opacity: [0, 0.9, 0],
@@ -333,160 +259,208 @@ function SparkleLayer() {
   );
 }
 
-function CatBackgroundContent() {
-  const [cats, setCats] = useState<CatItem[]>([]);
-  const [mounted, setMounted] = useState(false);
-  const [cursorActive, setCursorActive] = useState(false);
+interface TrailPoint {
+  id: number;
+  x: number;
+  y: number;
+  rotate: number;
+}
 
-  const cursorTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+function usePawTrail(enabled: boolean) {
+  const [points, setPoints] = useState<TrailPoint[]>([]);
+  const lastPos = useRef({ x: -1000, y: -1000 });
+  const idRef = useRef(0);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const removalTimeouts = useRef<Set<ReturnType<typeof setTimeout>>>(new Set());
 
   useEffect(() => {
-    setCats(generateCats());
-    setMounted(true);
-  }, []);
+    if (!enabled) {
+      return;
+    }
+
+    function clearTrail() {
+      setPoints([]);
+    }
+
+    function resetInactivityTimer() {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+
+      timeoutRef.current = setTimeout(clearTrail, 3000);
+    }
+
+    function stamp(x: number, y: number) {
+      const dx = x - lastPos.current.x;
+      const dy = y - lastPos.current.y;
+
+      if (Math.hypot(dx, dy) < 55) {
+        return;
+      }
+
+      resetInactivityTimer();
+
+      const angle = (Math.atan2(dy, dx) * 180) / Math.PI + 30;
+
+      lastPos.current = { x, y };
+
+      const id = idRef.current++;
+
+      setPoints((previous) => [
+        ...previous.slice(-8),
+        {
+          id,
+          x,
+          y,
+          rotate: angle,
+        },
+      ]);
+
+      const timeout = setTimeout(() => {
+        removalTimeouts.current.delete(timeout);
+
+        setPoints((previous) => previous.filter((point) => point.id !== id));
+      }, 900);
+
+      removalTimeouts.current.add(timeout);
+    }
+
+    function onMouseMove(event: MouseEvent) {
+      stamp(event.clientX, event.clientY);
+    }
+
+    window.addEventListener("mousemove", onMouseMove);
+
+    return () => {
+      window.removeEventListener("mousemove", onMouseMove);
+
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+
+      for (const timeout of removalTimeouts.current) {
+        clearTimeout(timeout);
+      }
+
+      removalTimeouts.current.clear();
+    };
+  }, [enabled]);
+
+  return points;
+}
+
+function CatBackgroundContent() {
+  const [mounted, setMounted] = useState(false);
+  const [mobile, setMobile] = useState(false);
 
   const mouseX = useMotionValue(-1000);
   const mouseY = useMotionValue(-1000);
 
-  const springX = useSpring(mouseX, {
-    stiffness: 60,
-    damping: 18,
-    mass: 0.4,
-  });
-
-  const springY = useSpring(mouseY, {
-    stiffness: 60,
-    damping: 18,
-    mass: 0.4,
-  });
-
-  const glowSize = 420;
-
-  const glowTransform = useTransform(
-    [springX, springY],
-    ([x, y]: number[]) => ({
-      x: x - glowSize / 2,
-      y: y - glowSize / 2,
-    }),
-  );
-
-  const glowX = useTransform(glowTransform, (value) => value.x);
-
-  const glowY = useTransform(glowTransform, (value) => value.y);
-
-  const cursorPointX = useTransform(springX, (x) => x - 5);
-
-  const cursorPointY = useTransform(springY, (y) => y - 5);
-
-  const catRefs = useMemo(
-    () =>
-      cats.map(() => ({
-        current: null as HTMLDivElement | null,
-      })),
-    [cats],
+  const cats = useMemo(
+    () => generateCats(mobile ? MOBILE_CAT_COUNT : DESKTOP_CAT_COUNT),
+    [mobile],
   );
 
   const catGlows = useMemo(() => cats.map(() => motionValue(0)), [cats]);
 
-  const pawPoints = usePawTrail();
+  const catRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  const pawPoints = usePawTrail(!mobile);
 
   useEffect(() => {
-    function activateCursor(x: number, y: number) {
-      mouseX.set(x);
-      mouseY.set(y);
+    const media = window.matchMedia("(max-width: 767px)");
 
-      setCursorActive(true);
+    const update = () => {
+      setMobile(media.matches);
+    };
 
-      if (cursorTimeout.current) {
-        clearTimeout(cursorTimeout.current);
-      }
-
-      cursorTimeout.current = setTimeout(() => {
-        setCursorActive(false);
-
-        mouseX.set(-1000);
-        mouseY.set(-1000);
-      }, 3000);
-    }
-
-    function onMouseMove(event: MouseEvent) {
-      activateCursor(event.clientX, event.clientY);
-    }
-
-    function onTouchMove(event: TouchEvent) {
-      const touch = event.touches[0];
-
-      if (!touch) {
-        return;
-      }
-
-      activateCursor(touch.clientX, touch.clientY);
-    }
-
-    window.addEventListener("mousemove", onMouseMove);
-    window.addEventListener("touchmove", onTouchMove, {
-      passive: true,
-    });
+    update();
+    media.addEventListener("change", update);
+    setMounted(true);
 
     return () => {
-      window.removeEventListener("mousemove", onMouseMove);
-      window.removeEventListener("touchmove", onTouchMove);
-
-      if (cursorTimeout.current) {
-        clearTimeout(cursorTimeout.current);
-      }
+      media.removeEventListener("change", update);
     };
-  }, [mouseX, mouseY]);
+  }, []);
 
-  useAnimationFrame(() => {
-    if (!mounted) {
+  useEffect(() => {
+    if (mobile) {
       return;
     }
 
-    const mx = mouseX.get();
-    const my = mouseY.get();
+    const onMouseMove = (event: MouseEvent) => {
+      mouseX.set(event.clientX);
+      mouseY.set(event.clientY);
+    };
 
-    for (let i = 0; i < cats.length; i++) {
-      const element = catRefs[i].current;
+    window.addEventListener("mousemove", onMouseMove);
 
-      if (!element) {
-        continue;
+    return () => {
+      window.removeEventListener("mousemove", onMouseMove);
+    };
+  }, [mobile, mouseX, mouseY]);
+
+  useEffect(() => {
+    if (mobile || !mounted) {
+      return;
+    }
+
+    let frame = 0;
+
+    const updateGlows = () => {
+      const mx = mouseX.get();
+      const my = mouseY.get();
+
+      for (let i = 0; i < cats.length; i++) {
+        const element = catRefs.current[i];
+
+        if (!element) {
+          continue;
+        }
+
+        const rect = element.getBoundingClientRect();
+        const cx = rect.left + rect.width / 2;
+        const cy = rect.top + rect.height / 2;
+        const distance = Math.hypot(mx - cx, my - cy);
+
+        const target = Math.max(0, 1 - distance / PROXIMITY_RADIUS);
+
+        const current = catGlows[i].get();
+
+        catGlows[i].set(current + (target - current) * 0.15);
       }
 
-      const rect = element.getBoundingClientRect();
+      frame = requestAnimationFrame(updateGlows);
+    };
 
-      const cx = rect.left + rect.width / 2;
-      const cy = rect.top + rect.height / 2;
+    frame = requestAnimationFrame(updateGlows);
 
-      const distance = Math.hypot(mx - cx, my - cy);
-
-      const target = Math.max(0, 1 - distance / PROXIMITY_RADIUS);
-
-      const current = catGlows[i].get();
-
-      catGlows[i].set(current + (target - current) * 0.15);
-    }
-  });
+    return () => {
+      cancelAnimationFrame(frame);
+    };
+  }, [mobile, mounted, cats, catGlows, mouseX, mouseY]);
 
   return (
-    <div className="pointer-events-none fixed inset-0 z-[-1] overflow-hidden">
+    <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
       <div className="absolute inset-0 bg-bg-base" />
 
-      {glowBlobs.map((blob, index) => (
+      {glowBlobs.slice(0, mobile ? 2 : 3).map((blob, index) => (
         <motion.div
           key={`blob-${index}`}
-          className="absolute rounded-full blur-[120px]"
+          className={`absolute rounded-full ${
+            mobile ? "blur-[80px]" : "blur-[120px]"
+          }`}
           style={{
             top: blob.top,
             left: blob.left,
-            width: "50vw",
-            height: "50vw",
+            width: mobile ? "70vw" : "50vw",
+            height: mobile ? "70vw" : "50vw",
             background: blob.color,
           }}
           animate={{
             x: [0, 30, -20, 0],
             y: [0, -20, 30, 0],
-            opacity: [0.6, 1, 0.7, 0.6],
+            opacity: mobile ? [0.5, 0.75, 0.5] : [0.6, 1, 0.7, 0.6],
           }}
           transition={{
             duration: blob.duration,
@@ -497,35 +471,14 @@ function CatBackgroundContent() {
         />
       ))}
 
-      <SparkleLayer />
-
-      <motion.div
-        className="absolute rounded-full"
-        style={{
-          width: glowSize,
-          height: glowSize,
-          x: glowX,
-          y: glowY,
-          background:
-            "radial-gradient(circle, rgba(216,180,254,0.20) 0%, rgba(168,85,247,0.10) 35%, rgba(168,85,247,0) 70%)",
-          filter: "blur(4px)",
-        }}
-        animate={{
-          opacity: [0.7, 1, 0.7],
-        }}
-        transition={{
-          duration: 2.4,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-      />
+      <SparkleLayer mobile={mobile} />
 
       {mounted &&
         cats.map((cat, index) => (
           <div
             key={cat.id}
             ref={(node) => {
-              catRefs[index].current = node;
+              catRefs.current[index] = node;
             }}
             className="absolute"
             style={{
@@ -533,59 +486,33 @@ function CatBackgroundContent() {
               top: `${cat.top}%`,
               width: cat.size,
               height: cat.size,
+              willChange: "transform",
             }}
           >
-            <div className="absolute inset-0">
-              <CatSprite cat={cat} glow={catGlows[index]} />
-            </div>
+            <CatSprite cat={cat} glow={catGlows[index]} />
           </div>
         ))}
 
-      <AnimatePresence>
-        {cursorActive && (
-          <>
-            <motion.div
-              className="absolute rounded-full"
+      {!mobile && (
+        <AnimatePresence>
+          {pawPoints.map((point) => (
+            <motion.svg
+              key={point.id}
+              viewBox={pawIcon.viewBox}
+              className="absolute"
               style={{
-                width: glowSize,
-                height: glowSize,
-                x: glowX,
-                y: glowY,
-                background:
-                  "radial-gradient(circle, rgba(216,180,254,0.20) 0%, rgba(168,85,247,0.10) 35%, rgba(168,85,247,0) 70%)",
-                filter: "blur(4px)",
+                left: point.x - 9,
+                top: point.y - 9,
+                width: 18,
+                height: 18,
+                rotate: point.rotate,
               }}
               initial={{
-                opacity: 0,
+                opacity: 0.9,
+                scale: 1,
               }}
               animate={{
-                opacity: 1,
-              }}
-              exit={{
-                opacity: 0,
-              }}
-              transition={{
-                duration: 0.35,
-              }}
-            />
-
-            <motion.div
-              className="absolute rounded-full"
-              style={{
-                width: 10,
-                height: 10,
-                x: cursorPointX,
-                y: cursorPointY,
-                background: "rgb(232,121,249)",
-                boxShadow:
-                  "0 0 8px 2px rgba(232,121,249,0.9), 0 0 24px 6px rgba(168,85,247,0.5)",
-              }}
-              initial={{
-                opacity: 0,
-                scale: 0.5,
-              }}
-              animate={{
-                opacity: 1,
+                opacity: 0.9,
                 scale: 1,
               }}
               exit={{
@@ -593,85 +520,48 @@ function CatBackgroundContent() {
                 scale: 0.5,
               }}
               transition={{
-                duration: 0.25,
+                duration: 0.9,
+                ease: "easeOut",
               }}
+              fill="rgb(216,180,254)"
+              stroke="none"
+            >
+              {pawIcon.elements.map((element, index) =>
+                element.type === "circle" ? (
+                  <circle
+                    key={index}
+                    cx={element.cx}
+                    cy={element.cy}
+                    r={element.r}
+                  />
+                ) : (
+                  <path key={index} d={element.d} />
+                ),
+              )}
+            </motion.svg>
+          ))}
+        </AnimatePresence>
+      )}
+
+      {!mobile && (
+        <svg className="pointer-events-none absolute inset-0 h-full w-full opacity-[0.03]">
+          <filter id="noise">
+            <feTurbulence
+              type="fractalNoise"
+              baseFrequency="0.65"
+              numOctaves="3"
+              stitchTiles="stitch"
             />
-          </>
-        )}
-      </AnimatePresence>
+            <feColorMatrix type="saturate" values="0" />
+          </filter>
 
-      <AnimatePresence>
-        {pawPoints.map((point) => (
-          <motion.svg
-            key={point.id}
-            viewBox={pawIcon.viewBox}
-            className="absolute"
-            style={{
-              left: point.x - 9,
-              top: point.y - 9,
-              width: 18,
-              height: 18,
-              rotate: point.rotate,
-            }}
-            initial={{
-              opacity: 0.9,
-              scale: 1,
-            }}
-            animate={{
-              opacity: 0.9,
-              scale: 1,
-            }}
-            exit={{
-              opacity: 0,
-              scale: 0.5,
-            }}
-            transition={{
-              duration: 0.9,
-              ease: "easeOut",
-            }}
-            fill="rgb(216,180,254)"
-            stroke="none"
-          >
-            {pawIcon.elements.map((element, index) =>
-              element.type === "circle" ? (
-                <circle
-                  key={index}
-                  cx={element.cx}
-                  cy={element.cy}
-                  r={element.r}
-                />
-              ) : (
-                <path key={index} d={element.d} />
-              ),
-            )}
-          </motion.svg>
-        ))}
-      </AnimatePresence>
-
-      <svg className="pointer-events-none absolute inset-0 h-full w-full opacity-[0.03]">
-        <filter id="noise">
-          <feTurbulence
-            type="fractalNoise"
-            baseFrequency="0.65"
-            numOctaves="3"
-            stitchTiles="stitch"
-          />
-
-          <feColorMatrix type="saturate" values="0" />
-        </filter>
-
-        <rect width="100%" height="100%" filter="url(#noise)" />
-      </svg>
+          <rect width="100%" height="100%" filter="url(#noise)" />
+        </svg>
+      )}
     </div>
   );
 }
 
 export default function CatBackground() {
-  const pathname = usePathname();
-
-  if (pathname && (pathname === "/docs" || pathname.startsWith("/docs/"))) {
-    return null;
-  }
-
   return <CatBackgroundContent />;
 }
