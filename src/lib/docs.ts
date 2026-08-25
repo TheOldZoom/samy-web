@@ -9,7 +9,7 @@ import type {
   TocItem,
 } from "@/types/docs";
 
-const DOCS_DIRECTORY = path.join(process.cwd(), "content", "docs");
+const DOCS_DIRECTORY = path.join(process.cwd(), "src", "content", "docs");
 
 export function slugify(text: string): string {
   return text

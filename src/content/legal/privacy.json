@@ -1,0 +1,58 @@
+{
+  "lastUpdated": "August 2026",
+  "intro": "Your privacy is important to us. This Privacy Policy explains what information Samy (\"the app\") collects, how it is used, how long it may be retained, and how you can request its deletion.",
+  "sections": [
+    {
+      "title": "1. Information We Collect",
+      "body": "Samy collects and stores only information reasonably necessary to provide its features.",
+      "list": [
+        "Discord user IDs, used to associate users with preferences and features such as locale, prefix, timezone, birthday, AFK information, and supported integrations",
+        "Discord server/guild IDs, used to associate server settings and features with the appropriate server",
+        "Discord channel IDs when required for features such as Welcome and Leave messages",
+        "Last.fm usernames when a user connects their Last.fm account to Samy",
+        "Server configuration data, including command settings and custom Welcome and Leave messages",
+        "Moderation data required for moderation features, such as temporary bans and their associated user ID, server ID, reason, creation time, and expiration time"
+      ]
+    },
+    {
+      "title": "2. Information We Do Not Store",
+      "body": "Samy does not permanently store general Discord message content, including normal user messages, command messages, deleted messages, or general message history. The exception is content that is explicitly configured as part of a Samy feature, such as custom Welcome or Leave messages. Samy also does not persist Discord usernames, display names, or role IDs."
+    },
+    {
+      "title": "3. How We Use Your Data",
+      "body": "Collected data is used to operate and maintain Samy's features, store user and server preferences, provide supported integrations, maintain server configurations, provide moderation functionality, and prevent abuse or misuse. We do not sell your personal information or share it with third parties for their marketing purposes."
+    },
+    {
+      "title": "4. Data Retention",
+      "body": "We retain information for as long as reasonably necessary to provide the relevant functionality. If Samy is removed from a Discord server, associated guild data may be retained for up to one year before being eligible for deletion. Some information, including moderation records such as warnings, may be retained longer where necessary for moderation, security, legal obligations, or other legitimate operational purposes."
+    },
+    {
+      "title": "5. Data Deletion",
+      "body": "You may request deletion of personal data associated with your use of Samy by contacting theoldzoom on Discord through our /discord page. Deletion requests may cover personal data that is not required to be retained for operational, security, or moderation purposes. Moderation records, including warnings, are not necessarily deleted upon request."
+    },
+    {
+      "title": "6. Third-Party Services",
+      "body": "Samy may integrate with third-party services, including Last.fm and Chess.com. When you use an integration, Samy may send or receive information necessary for that integration to function. Information handled by third-party services is also subject to their respective privacy policies. Samy may add additional third-party integrations in the future."
+    },
+    {
+      "title": "7. Data Security",
+      "body": "We take reasonable measures to protect stored data from unauthorized access, alteration, disclosure, or destruction. Samy's database is hosted on infrastructure operated by the developer. However, no method of storing or transmitting information over the internet can be guaranteed to be completely secure."
+    },
+    {
+      "title": "8. Children's Privacy",
+      "body": "Samy follows the minimum age requirements established by Discord. We do not knowingly intend to collect information from users who do not meet Discord's applicable minimum age requirements. If we become aware that information has been collected from someone who does not meet those requirements, we will take reasonable steps to address and delete the information where appropriate."
+    },
+    {
+      "title": "9. Future Features",
+      "body": "Samy is actively developed and may introduce additional features in the future. New features may temporarily process or store additional information when reasonably necessary to provide those features. This may include temporary command usage information or additional moderation data."
+    },
+    {
+      "title": "10. Changes to This Policy",
+      "body": "We may update this Privacy Policy from time to time as Samy develops and its features or data practices change. When changes are made, the \"Last updated\" date at the top of this policy will be updated. Continued use of Samy after changes constitutes acknowledgment of the updated policy."
+    },
+    {
+      "title": "11. Contact",
+      "body": "If you have any questions about this Privacy Policy or want to request deletion of your personal data, please contact theoldzoom on Discord through our /discord page."
+    }
+  ]
+}

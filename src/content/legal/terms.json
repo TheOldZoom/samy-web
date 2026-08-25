@@ -1,0 +1,69 @@
+{
+  "lastUpdated": "August 2026",
+  "intro": "These Terms of Service (\"Terms\") govern your use of Samy (\"the bot\"). By inviting, accessing, or using Samy, you agree to these Terms, Discord's applicable rules, and all applicable laws and regulations.",
+  "sections": [
+    {
+      "title": "1. Eligibility and Use",
+      "body": "Samy is available to anyone who is permitted to use Discord. Your use of Samy must comply with these Terms, Discord's Terms of Service, Discord's Community Guidelines, and all applicable laws and regulations."
+    },
+    {
+      "title": "2. Acceptable Use",
+      "body": "You may not use Samy to abuse, exploit, disrupt, or interfere with the bot or its infrastructure.",
+      "list": [
+        "Attempt to gain unauthorized access to Samy's infrastructure, database, or services",
+        "Exploit vulnerabilities or intentionally disrupt Samy's operation",
+        "Bypass cooldowns, permissions, limitations, or other safeguards",
+        "Use Samy for spam, harassment, abuse, or other harmful activity",
+        "Use Samy in violation of Discord's rules or applicable laws"
+      ]
+    },
+    {
+      "title": "3. Restrictions and Termination",
+      "body": "The developer may restrict, suspend, or terminate access to Samy for any user or server at their discretion. This may include situations involving abuse, exploitation, violations of these Terms, violations of Discord's rules, or other circumstances where restricting access is considered necessary."
+    },
+    {
+      "title": "4. Server Administrators",
+      "body": "Server owners and administrators are responsible for how Samy is configured and used within their servers. Administrators are responsible for the moderation decisions and other actions taken through Samy's features. The developer is not responsible for consequences resulting from incorrect configuration, misuse, or inappropriate moderation actions by server administrators."
+    },
+    {
+      "title": "5. User-Provided Content",
+      "body": "Users and server administrators are responsible for content they provide or configure through Samy, including custom Welcome and Leave messages, moderation reasons, configuration values, and other content submitted to the bot. You must ensure that such content complies with Discord's rules and applicable laws."
+    },
+    {
+      "title": "6. Availability and Changes",
+      "body": "Samy is provided on an ongoing development basis and is provided \"as is\" and \"as available\". We do not guarantee continuous availability, 24/7 uptime, freedom from bugs or errors, uninterrupted command processing, permanent availability, or that all data will always be recoverable. Features may be added, modified, temporarily disabled, or removed at any time."
+    },
+    {
+      "title": "7. Third-Party Services",
+      "body": "Samy may integrate with third-party services, including Last.fm and Chess.com. Your use of these integrations may also be subject to the terms and policies of the respective third-party services. The developer is not responsible for outages, changes, errors, data handling, or other issues caused by third-party services."
+    },
+    {
+      "title": "8. Open Source and Licensing",
+      "body": "Samy is licensed under the GNU Affero General Public License v3.0 (AGPL-3.0). The source code and applicable permissions are governed by the AGPL-3.0 license. Any modified versions of Samy must also be released under the AGPL-3.0 license. If you run a modified version of Samy as a service, you must make the corresponding source code available to users of that service. These Terms do not replace or modify the rights and obligations provided by the AGPL-3.0 license."
+    },
+    {
+      "title": "9. User and Server Data",
+      "body": "Samy's collection, use, retention, and deletion of information are described in the Samy Privacy Policy. By using Samy, you acknowledge that information may be processed and stored as described in that policy."
+    },
+    {
+      "title": "10. Disclaimer",
+      "body": "To the maximum extent permitted by applicable law, Samy is provided without warranties or guarantees regarding its availability, reliability, accuracy, functionality, or suitability for any particular purpose. You use Samy at your own discretion and risk."
+    },
+    {
+      "title": "11. Limitation of Liability",
+      "body": "To the maximum extent permitted by applicable law, the developer is not responsible for damages, losses, data loss, server issues, incorrect moderation actions, configuration errors, downtime, bugs, or other consequences resulting from the use of or inability to use Samy. This also includes issues caused by Discord or third-party services."
+    },
+    {
+      "title": "12. Ending Your Use of Samy",
+      "body": "You may stop using Samy at any time by removing the bot from your Discord server or otherwise discontinuing your use of its services."
+    },
+    {
+      "title": "13. Changes to These Terms",
+      "body": "We may update these Terms from time to time as Samy develops or its features and services change. When changes are made, the \"lastUpdated\" date will be updated. Continued use of Samy after changes to these Terms constitutes acceptance of the updated Terms."
+    },
+    {
+      "title": "14. Contact",
+      "body": "If you have any questions, concerns, or other inquiries regarding these Terms, please contact theoldzoom through our Discord community at /discord."
+    }
+  ]
+}
