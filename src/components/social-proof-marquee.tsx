@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
 interface Server {
-  id: string;
   name: string;
   icon: string | null;
   memberCount: number;
@@ -112,7 +111,7 @@ export default function SocialProofMarquee() {
           >
             {[...servers, ...servers].map((server, i) => (
               <div
-                key={`${server.id}-${i}`}
+                key={`${i}`}
                 className="mr-3 flex h-14 shrink-0 items-center gap-3 rounded-xl border border-border-subtle bg-bg-card px-3.5 pr-5"
               >
                 <div className="relative">
