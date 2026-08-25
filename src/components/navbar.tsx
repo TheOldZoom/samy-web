@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { Menu, X, ArrowUpRight } from "lucide-react";
+import { Menu, X, ArrowUpRight, Eye, EyeOff } from "lucide-react";
+import { useCatBackground } from "@/components/cat-background-context";
 
 const navLinks = [
   { label: "commands", href: "/commands" },
@@ -12,6 +13,7 @@ const navLinks = [
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const { visible, toggle } = useCatBackground();
 
   return (
     <header className="sticky top-0 z-50">
@@ -45,7 +47,20 @@ export default function Navbar() {
             ))}
           </div>
 
-          <div className="hidden md:flex items-center">
+          <div className="hidden md:flex items-center gap-2">
+            <button
+              type="button"
+              onClick={toggle}
+              aria-label={visible ? "Hide background" : "Show background"}
+              className="flex h-9 w-9 items-center justify-center rounded-lg text-text-muted transition-colors hover:bg-bg-elevated hover:text-text-primary"
+            >
+              {visible ? (
+                <Eye className="h-[18px] w-[18px]" />
+              ) : (
+                <EyeOff className="h-[18px] w-[18px]" />
+              )}
+            </button>
+
             <Link
               href="/invite"
               className="group flex items-center gap-1.5 rounded-lg  px-3.5 py-2 text-[13px] font-medium transition-all hover:opacity-90 bg-primary text-primary-foreground"
@@ -84,6 +99,20 @@ export default function Navbar() {
                     {link.label}
                   </Link>
                 ))}
+
+                <button
+                  type="button"
+                  onClick={toggle}
+                  aria-label={visible ? "Hide background" : "Show background"}
+                  className="mt-4 flex items-center justify-center gap-2 rounded-lg border border-border-subtle px-4 py-2.5 text-sm font-medium text-text-secondary transition-colors hover:text-text-primary"
+                >
+                  {visible ? (
+                    <Eye className="h-4 w-4" />
+                  ) : (
+                    <EyeOff className="h-4 w-4" />
+                  )}
+                  {visible ? "hide background" : "show background"}
+                </button>
 
                 <Link
                   href="/invite"

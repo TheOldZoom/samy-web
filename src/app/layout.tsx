@@ -4,6 +4,7 @@ import "./globals.css";
 import CatBackground from "@/components/cat-background";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
+import { CatBackgroundProvider } from "@/components/cat-background-context";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,12 +29,14 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-bg-base text-text-primary">
-        <CatBackground />
-        <>
-          <Navbar />
-          <main className="flex-1">{children}</main>
-          <Footer />
-        </>
+        <CatBackgroundProvider>
+          <CatBackground />
+          <>
+            <Navbar />
+            <main className="flex-1">{children}</main>
+            <Footer />
+          </>
+        </CatBackgroundProvider>
       </body>
     </html>
   );

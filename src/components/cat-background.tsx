@@ -10,6 +10,7 @@ import {
   useTransform,
   type MotionValue,
 } from "framer-motion";
+import { useCatBackground } from "@/components/cat-background-context";
 
 interface CatItem {
   id: number;
@@ -350,6 +351,7 @@ function usePawTrail(enabled: boolean) {
 }
 
 function CatBackgroundContent() {
+  const { visible } = useCatBackground();
   const [mounted, setMounted] = useState(false);
   const [mobile, setMobile] = useState(false);
 
@@ -444,36 +446,38 @@ function CatBackgroundContent() {
     <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
       <div className="absolute inset-0 bg-bg-base" />
 
-      {glowBlobs.slice(0, mobile ? 2 : 3).map((blob, index) => (
-        <motion.div
-          key={`blob-${index}`}
-          className={`absolute rounded-full ${
-            mobile ? "blur-[80px]" : "blur-[120px]"
-          }`}
-          style={{
-            top: blob.top,
-            left: blob.left,
-            width: mobile ? "70vw" : "50vw",
-            height: mobile ? "70vw" : "50vw",
-            background: blob.color,
-          }}
-          animate={{
-            x: [0, 30, -20, 0],
-            y: [0, -20, 30, 0],
-            opacity: mobile ? [0.5, 0.75, 0.5] : [0.6, 1, 0.7, 0.6],
-          }}
-          transition={{
-            duration: blob.duration,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: blob.delay,
-          }}
-        />
-      ))}
+      {visible &&
+        glowBlobs.slice(0, mobile ? 2 : 3).map((blob, index) => (
+          <motion.div
+            key={`blob-${index}`}
+            className={`absolute rounded-full ${
+              mobile ? "blur-[80px]" : "blur-[120px]"
+            }`}
+            style={{
+              top: blob.top,
+              left: blob.left,
+              width: mobile ? "70vw" : "50vw",
+              height: mobile ? "70vw" : "50vw",
+              background: blob.color,
+            }}
+            animate={{
+              x: [0, 30, -20, 0],
+              y: [0, -20, 30, 0],
+              opacity: mobile ? [0.5, 0.75, 0.5] : [0.6, 1, 0.7, 0.6],
+            }}
+            transition={{
+              duration: blob.duration,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: blob.delay,
+            }}
+          />
+        ))}
 
-      <SparkleLayer mobile={mobile} />
+      {visible && <SparkleLayer mobile={mobile} />}
 
-      {mounted &&
+      {visible &&
+        mounted &&
         cats.map((cat, index) => (
           <div
             key={cat.id}
@@ -493,71 +497,74 @@ function CatBackgroundContent() {
           </div>
         ))}
 
-      {!mobile && (
-        <AnimatePresence>
-          {pawPoints.map((point) => (
-            <motion.svg
-              key={point.id}
-              viewBox={pawIcon.viewBox}
-              className="absolute"
-              style={{
-                left: point.x - 9,
-                top: point.y - 9,
-                width: 18,
-                height: 18,
-                rotate: point.rotate,
-              }}
-              initial={{
-                opacity: 0.9,
-                scale: 1,
-              }}
-              animate={{
-                opacity: 0.9,
-                scale: 1,
-              }}
-              exit={{
-                opacity: 0,
-                scale: 0.5,
-              }}
-              transition={{
-                duration: 0.9,
-                ease: "easeOut",
-              }}
-              fill="rgb(216,180,254)"
-              stroke="none"
-            >
-              {pawIcon.elements.map((element, index) =>
-                element.type === "circle" ? (
-                  <circle
-                    key={index}
-                    cx={element.cx}
-                    cy={element.cy}
-                    r={element.r}
-                  />
-                ) : (
-                  <path key={index} d={element.d} />
-                ),
-              )}
-            </motion.svg>
-          ))}
-        </AnimatePresence>
-      )}
+      {visible &&
+        !mobile &&
+        pawPoints.length > 0 && (
+          <AnimatePresence>
+            {pawPoints.map((point) => (
+              <motion.svg
+                key={point.id}
+                viewBox={pawIcon.viewBox}
+                className="absolute"
+                style={{
+                  left: point.x - 9,
+                  top: point.y - 9,
+                  width: 18,
+                  height: 18,
+                  rotate: point.rotate,
+                }}
+                initial={{
+                  opacity: 0.9,
+                  scale: 1,
+                }}
+                animate={{
+                  opacity: 0.9,
+                  scale: 1,
+                }}
+                exit={{
+                  opacity: 0,
+                  scale: 0.5,
+                }}
+                transition={{
+                  duration: 0.9,
+                  ease: "easeOut",
+                }}
+                fill="rgb(216,180,254)"
+                stroke="none"
+              >
+                {pawIcon.elements.map((element, index) =>
+                  element.type === "circle" ? (
+                    <circle
+                      key={index}
+                      cx={element.cx}
+                      cy={element.cy}
+                      r={element.r}
+                    />
+                  ) : (
+                    <path key={index} d={element.d} />
+                  ),
+                )}
+              </motion.svg>
+            ))}
+          </AnimatePresence>
+        )}
 
-      {!mobile && (
-        <svg className="pointer-events-none absolute inset-0 h-full w-full opacity-[0.03]">
-          <filter id="noise">
-            <feTurbulence
-              type="fractalNoise"
-              baseFrequency="0.65"
-              numOctaves="3"
-              stitchTiles="stitch"
-            />
-            <feColorMatrix type="saturate" values="0" />
-          </filter>
+      {visible &&
+        !mobile && (
+          <svg className="pointer-events-none absolute inset-0 h-full w-full opacity-[0.03]">
+            <filter id="noise">
+              <feTurbulence
+                type="fractalNoise"
+                baseFrequency="0.65"
+                numOctaves="3"
+                stitchTiles="stitch"
+              />
+              <feColorMatrix type="saturate" values="0" />
+            </filter>
 
-          <rect width="100%" height="100%" filter="url(#noise)" />
-        </svg>
-      )}
+            <rect width="100%" height="100%" filter="url(#noise)" />
+          </svg>
+        )}
     </div>
   );
 }
