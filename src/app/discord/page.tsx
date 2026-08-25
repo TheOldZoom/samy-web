@@ -41,7 +41,7 @@ export default async function DiscordPage() {
   const server = await getDiscordServer();
 
   return (
-    <div className="relative flex min-h-[calc(100vh-4rem)] items-center justify-center overflow-hidden">
+    <div className="relative flex items-center justify-center overflow-hidden">
       <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
         <div className="absolute left-1/2 top-1/2 h-[550px] w-[550px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent/10 blur-[120px]" />
       </div>
