@@ -1,14 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import {
-  Search,
-  ChevronDown,
-  Terminal,
-  Copy,
-  Check,
-  X,
-} from "lucide-react";
+import { Search, ChevronDown, Terminal, Copy, Check, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Dialog,
@@ -421,7 +414,7 @@ function CommandModal({
           <div className="mt-5 flex flex-wrap items-center gap-2">
             {entry.aliases.length > 0 && (
               <span className="rounded-lg border border-border-subtle/60 bg-bg-card/40 px-2.5 py-1.5 text-xs font-medium text-text-secondary backdrop-blur-sm">
-                {entry.aliases.map((alias) => `/${alias}`).join(", ")}
+                {entry.aliases.map((alias) => `,${alias}`).join(", ")}
               </span>
             )}
 
@@ -708,7 +701,8 @@ export default function CommandsPage() {
           throw new Error("Failed to fetch commands");
         }
 
-        const data: CommandsResponse | RawCommandsResponse = await response.json();
+        const data: CommandsResponse | RawCommandsResponse =
+          await response.json();
 
         if (!cancelled) {
           let raw: Command[] = [];
