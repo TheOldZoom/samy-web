@@ -32,6 +32,13 @@ export interface CommandSubcommand {
   description: string;
   arguments: CommandArgument[];
   examples?: string[];
+  cooldown: number | null;
+  guildOnly: boolean;
+  ownerOnly: boolean;
+  userPermissions: string[];
+  botPermissions: string[];
+  hasExecute: boolean;
+  subcommands: CommandSubcommand[];
 }
 
 export interface Command {
@@ -54,6 +61,8 @@ interface CommandsResponse {
   commands: Command[];
   categories?: Record<string, Command[]>;
 }
+
+type RawCommandsResponse = Record<string, Command[]>;
 
 function formatType(type: CommandArgument["type"]) {
   return type.toUpperCase();
@@ -95,6 +104,13 @@ function normalizeSubcommand(
     description: sub.description ?? "",
     arguments: (sub.arguments ?? []).map(normalizeArgument),
     examples: sub.examples ?? [],
+    cooldown: sub.cooldown ?? null,
+    guildOnly: sub.guildOnly ?? false,
+    ownerOnly: sub.ownerOnly ?? false,
+    userPermissions: sub.userPermissions ?? [],
+    botPermissions: sub.botPermissions ?? [],
+    hasExecute: sub.hasExecute ?? true,
+    subcommands: (sub.subcommands ?? []).map(normalizeSubcommand),
   };
 }
 
@@ -132,40 +148,36 @@ interface FlatCommand {
 }
 
 function flattenCommand(command: Command): FlatCommand[] {
+  return flatten(command, command.category);
+}
+
+function flatten(
+  cmd: Command | CommandSubcommand,
+  category: string,
+  parentSegments: string[] = [],
+): FlatCommand[] {
+  const segments = [...parentSegments, cmd.name];
   const entries: FlatCommand[] = [];
 
-  if (command.hasExecute || command.subcommands.length === 0) {
+  if (cmd.hasExecute || cmd.subcommands.length === 0) {
     entries.push({
-      id: command.name,
-      segments: [command.name],
-      description: command.description,
-      category: command.category,
-      arguments: command.arguments,
-      examples: command.examples,
-      aliases: command.aliases,
-      cooldown: command.cooldown,
-      guildOnly: command.guildOnly,
-      ownerOnly: command.ownerOnly,
-      userPermissions: command.userPermissions,
-      botPermissions: command.botPermissions,
+      id: segments.join("-"),
+      segments,
+      description: cmd.description,
+      category,
+      arguments: cmd.arguments,
+      examples: cmd.examples ?? [],
+      aliases: cmd.aliases ?? [],
+      cooldown: cmd.cooldown ?? null,
+      guildOnly: cmd.guildOnly ?? false,
+      ownerOnly: cmd.ownerOnly ?? false,
+      userPermissions: cmd.userPermissions ?? [],
+      botPermissions: cmd.botPermissions ?? [],
     });
   }
 
-  for (const sub of command.subcommands) {
-    entries.push({
-      id: `${command.name}-${sub.name}`,
-      segments: [command.name, sub.name],
-      description: sub.description,
-      category: command.category,
-      arguments: sub.arguments,
-      examples: sub.examples ?? [],
-      aliases: sub.aliases ?? [],
-      cooldown: command.cooldown,
-      guildOnly: command.guildOnly,
-      ownerOnly: command.ownerOnly,
-      userPermissions: command.userPermissions,
-      botPermissions: command.botPermissions,
-    });
+  for (const sub of cmd.subcommands) {
+    entries.push(...flatten(sub, category, segments));
   }
 
   return entries;
@@ -696,10 +708,16 @@ export default function CommandsPage() {
           throw new Error("Failed to fetch commands");
         }
 
-        const data: CommandsResponse = await response.json();
+        const data: CommandsResponse | RawCommandsResponse = await response.json();
 
         if (!cancelled) {
-          const raw = Array.isArray(data.commands) ? data.commands : [];
+          let raw: Command[] = [];
+
+          if (Array.isArray((data as CommandsResponse).commands)) {
+            raw = (data as CommandsResponse).commands;
+          } else {
+            raw = Object.values(data as RawCommandsResponse).flat();
+          }
 
           setEntries(raw.map(normalizeCommand).flatMap(flattenCommand));
         }
