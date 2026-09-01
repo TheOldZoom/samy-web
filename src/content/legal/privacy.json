@@ -1,58 +1,57 @@
 {
   "lastUpdated": "August 2026",
-  "intro": "Your privacy is important to us. This Privacy Policy explains what information Samy (\"the app\") collects, how it is used, how long it may be retained, and how you can request its deletion.",
+  "intro": "Your privacy is important to us. This Privacy Policy explains what information Samy (\"the app\", \"the bot\") collects, how it is used, how long it may be retained, and how you can request its deletion.",
   "sections": [
     {
       "title": "1. Information We Collect",
-      "body": "Samy collects and stores only information reasonably necessary to provide its features.",
+      "body": "Samy collects and stores only information reasonably necessary to provide and maintain its features.",
       "list": [
-        "Discord user IDs, used to associate users with preferences and features such as locale, prefix, timezone, birthday, AFK information, and supported integrations",
-        "Discord server/guild IDs, used to associate server settings and features with the appropriate server",
-        "Discord channel IDs when required for features such as Welcome and Leave messages",
-        "Last.fm usernames when a user connects their Last.fm account to Samy",
-        "Server configuration data, including command settings and custom Welcome and Leave messages",
-        "Moderation data required for moderation features, such as temporary bans and their associated user ID, server ID, reason, creation time, and expiration time"
+        "Discord User IDs: Stored to associate users with preferences and features (such as locale, custom command prefix, timezone, birthday), AFK status reasons, temporary roles, sticky roles, moderation records, and connected integrations.",
+        "Discord Server/Guild IDs: Stored to associate server settings, feature configurations, moderation records, and logging channels with the appropriate server.",
+        "Discord Channel & Category IDs: Stored when configured for specific features, such as Welcome and Leave announcements, Lockdown channel lists, Markov AI learning whitelists, Event Log destinations, and per-channel command overrides.",
+        "Discord Role IDs: Stored for role management and configuration features, including Autoroles (roles granted on join), Sticky Roles (roles restored on rejoin), Temporary Roles, Lockdown target roles, Command Role Restrictions, and Fake Permissions.",
+        "Moderation & Audit Data: Stored to maintain server accountability and discipline histories, including formal Warnings (user ID, moderator ID, reason), Member Notes (user ID, moderator ID, note content), Moderation Cases (case number, action type, user ID, moderator ID, reason, duration, expiration, resolution status), Temporary Bans (user ID, reason, expiration), and Hardbans (permanent re-ban on rejoin).",
+        "Server Configuration & Custom Messages: Stored when configured by server administrators, including custom Welcome and Leave messages, Command Aliases and argument templates, per-guild/per-channel/per-member command enable/disable toggles, and Server Lockdown status.",
+        "Event Logging Webhook Information: Webhook IDs and Webhook Tokens created or provided for delivering server event logs to designated logging channels.",
+        "Markov AI Training Data: When the Markov feature is explicitly enabled in a server, anonymized word transition frequencies and sequence mappings (n-grams) derived from chat messages in whitelisted channels are stored to generate text responses.",
+        "Third-Party Integration Data: Last.fm usernames and connection timestamps when a user voluntarily connects their Last.fm account to Samy."
       ]
     },
     {
       "title": "2. Information We Do Not Store",
-      "body": "Samy does not permanently store general Discord message content, including normal user messages, command messages, deleted messages, or general message history. The exception is content that is explicitly configured as part of a Samy feature, such as custom Welcome or Leave messages. Samy also does not persist Discord usernames, display names, or role IDs."
+      "body": "Samy does not permanently store general Discord message content, private chat histories, deleted message contents, or personal user profile data (such as Discord usernames, avatars, or passwords). The only message-related content stored in our database is: (a) content explicitly configured as a template or feature (such as custom Welcome/Leave messages or AFK reasons), and (b) aggregated statistical word transition data from whitelisted channels when the server-level Markov learning feature is active."
     },
     {
       "title": "3. How We Use Your Data",
-      "body": "Collected data is used to operate and maintain Samy's features, store user and server preferences, provide supported integrations, maintain server configurations, provide moderation functionality, and prevent abuse or misuse. We do not sell your personal information or share it with third parties for their marketing purposes."
+      "body": "Collected data is used strictly to operate, maintain, and deliver Samy's functionality, including: providing customizable server moderation and logging; executing temporary and sticky role automation; maintaining user and server preferences; powering AI text generation features where enabled; providing connected third-party integrations (such as Last.fm); and preventing abuse or service misuse. We do not sell your personal data or share it with third parties for marketing purposes."
     },
     {
       "title": "4. Data Retention",
-      "body": "We retain information for as long as reasonably necessary to provide the relevant functionality. If Samy is removed from a Discord server, associated guild data may be retained for up to one year before being eligible for deletion. Some information, including moderation records such as warnings, may be retained longer where necessary for moderation, security, legal obligations, or other legitimate operational purposes."
+      "body": "We retain information only for as long as reasonably necessary to provide the relevant functionality. AFK records older than 30 days are automatically deleted. Temporary roles and temporary bans are deleted upon expiration. If Samy is removed from a Discord server, associated guild configuration data may be retained for up to one year to preserve settings should the bot be re-added, after which it becomes eligible for deletion. Moderation records (such as warnings, cases, notes, and hardbans) are retained for server security, accountability, and record-keeping purposes."
     },
     {
-      "title": "5. Data Deletion",
-      "body": "You may request deletion of personal data associated with your use of Samy by contacting theoldzoom on Discord through our /discord page. Deletion requests may cover personal data that is not required to be retained for operational, security, or moderation purposes. Moderation records, including warnings, are not necessarily deleted upon request."
+      "title": "5. Data Deletion & User Rights",
+      "body": "You may request deletion of personal data associated with your use of Samy (such as user preferences, birthdays, timezones, or Last.fm integrations) by contacting the developer (@theoldzoom) on Discord through our /discord page. Server administrators may delete server-specific data directly using the bot's management commands or by requesting server data removal. Moderation records may be preserved where required for server integrity or legitimate administrative purposes."
     },
     {
       "title": "6. Third-Party Services",
-      "body": "Samy may integrate with third-party services, including Last.fm and Chess.com. When you use an integration, Samy may send or receive information necessary for that integration to function. Information handled by third-party services is also subject to their respective privacy policies. Samy may add additional third-party integrations in the future."
+      "body": "Samy integrates with third-party services, including the Last.fm API. When you use an integration, Samy sends and receives information necessary for that integration to function. Information handled by third-party services is subject to their respective privacy policies and terms of service."
     },
     {
       "title": "7. Data Security",
-      "body": "We take reasonable measures to protect stored data from unauthorized access, alteration, disclosure, or destruction. Samy's database is hosted on infrastructure operated by the developer. However, no method of storing or transmitting information over the internet can be guaranteed to be completely secure."
+      "body": "We take reasonable administrative, technical, and physical measures to protect stored data from unauthorized access, alteration, disclosure, or destruction. Database access is restricted, secured with environment credentials, and hosted on isolated infrastructure. However, no method of electronic storage or internet transmission can be guaranteed to be completely secure."
     },
     {
       "title": "8. Children's Privacy",
-      "body": "Samy follows the minimum age requirements established by Discord. We do not knowingly intend to collect information from users who do not meet Discord's applicable minimum age requirements. If we become aware that information has been collected from someone who does not meet those requirements, we will take reasonable steps to address and delete the information where appropriate."
+      "body": "Samy follows the minimum age requirements established by Discord. We do not knowingly collect personal data from individuals under the minimum age required by Discord in their jurisdiction (13+ years old, or older depending on country). If we become aware that information has been collected from someone who does not meet those requirements, we will take prompt steps to delete that data."
     },
     {
-      "title": "9. Future Features",
-      "body": "Samy is actively developed and may introduce additional features in the future. New features may temporarily process or store additional information when reasonably necessary to provide those features. This may include temporary command usage information or additional moderation data."
+      "title": "9. Changes to This Policy",
+      "body": "We may update this Privacy Policy from time to time as Samy develops and its features or data practices change. When changes are published, the \"lastUpdated\" date at the top of this policy will be updated. Continued use of Samy after changes constitutes acknowledgment of the updated policy."
     },
     {
-      "title": "10. Changes to This Policy",
-      "body": "We may update this Privacy Policy from time to time as Samy develops and its features or data practices change. When changes are made, the \"Last updated\" date at the top of this policy will be updated. Continued use of Samy after changes constitutes acknowledgment of the updated policy."
-    },
-    {
-      "title": "11. Contact",
-      "body": "If you have any questions about this Privacy Policy or want to request deletion of your personal data, please contact theoldzoom on Discord through our /discord page."
+      "title": "10. Contact",
+      "body": "If you have any questions about this Privacy Policy or want to request deletion of your personal data, please contact the developer (@theoldzoom) on Discord through our /discord page."
     }
   ]
 }
